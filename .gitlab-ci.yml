@@ -1,7 +1,6 @@
 image: node:7
 
 before_script:
-    - apt update 
     - apt install imagemagick
     - npm install -g pngquant-bin
     - npm install sync-request
