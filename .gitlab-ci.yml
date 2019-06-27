@@ -2,7 +2,7 @@ image: node:7
 
 before_script:
     - apt install imagemagick
-    - apt install pngquant
+    - apt install pngquant-bin
     - npm install sync-request
     - npm install cheerio
     - npm install gen-epub@git+https://github.com/258ch/gen-epub
