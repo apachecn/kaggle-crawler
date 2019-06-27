@@ -23,7 +23,7 @@ after_script:
   - git config user.email ${GL_EMAIL}
   - git add -A
   - git commit -am "$(date "+%Y-%m-%d %H:%M:%S")"
-  - git push "https://${GL_TOKEN}@gitlab.com/${GL_USER}/${GL_REPO}.git" master:${GL_BRANCH} -f
+  - git push "https://oauth2:${GL_TOKEN}@gitlab.com/${GL_USER}/${GL_REPO}.git" master:${GL_BRANCH} -f
 
   
 variables:
