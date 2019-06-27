@@ -1,0 +1,34 @@
+image: node:7
+
+before_script:
+    - apt install imagemagick
+    - apt install pngquant
+    - npm install sync-request
+    - npm install cheerio
+    - npm install gen-epub@git+https://github.com/258ch/gen-epub
+    
+job:
+  script:
+    - node kaggle $NAME
+  except:
+    - pushes
+    - merge_requests
+    
+after_script:
+  - mkdir out
+  - mv *.epub out/
+  - cd out
+  - git init
+  - git config user.name ${GL_UN}
+  - git config user.email ${GL_EMAIL}
+  - git add -A
+  - git commit -am "$(date "+%Y-%m-%d %H:%M:%S")"
+  - git push "https://${GL_TOKEN}@gitlab.com/${GL_USER}/${GL_REPO}.git" master:${GL_BRANCH} -f
+
+  
+variables:
+  GL_UN: wizardforcel
+  GL_EMAIL: 562826179@qq.com
+  GL_USER: wizardforcel
+  GL_REPO: kaggle-crawler
+  GL_BRANCH: $NAME
