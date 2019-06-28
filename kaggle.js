@@ -46,7 +46,7 @@ function processImg(html, pageUrl, imgs) {
             
             if(!imgs.has(picname)) {
                 var data = request('GET', url).getBody();
-                data = betterImg(data)
+                data = betterImg(data, 'tmp')
                 imgs.set(picname, data);
             }
             
@@ -89,6 +89,11 @@ function compToId(name) {
     return id
 }
 
+function safeMkDir(dir) {
+    try {fs.mkdirSync(dir)}
+    catch(ex) {}
+}
+
 function main() {
     
     var name = process.argv[2]
@@ -98,6 +103,7 @@ function main() {
     var toc = getToc(id)
     var articles = []
     var imgs = new Map()
+    safeMkDir('tmp')
     for(var it of toc) {
         
         var prefix = 'https://www.kaggle.com'
@@ -123,6 +129,7 @@ function main() {
     
     articles.splice(0, 0, {title: `Kaggle Kernel - ${name}`, content: ''})
     genEpub(articles, imgs)
+    
 }
 
 if(module == require.main) main()
