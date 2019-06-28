@@ -46,7 +46,7 @@ function processImg(html, pageUrl, imgs) {
             
             if(!imgs.has(picname)) {
                 var data = request('GET', url).getBody();
-                data = betterImg(data)
+                data = betterImg(data, 'tmp')
                 imgs.set(picname, data);
             }
             
@@ -103,6 +103,7 @@ function main() {
     var toc = getToc(id)
     var articles = []
     var imgs = new Map()
+    safeMkDir('tmp')
     for(var it of toc) {
         
         var prefix = 'https://www.kaggle.com'
